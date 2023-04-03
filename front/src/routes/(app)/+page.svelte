@@ -1,7 +1,24 @@
 <div>dfgdfgsdfg</div>
 
 
-<div style="text-align: center;">
-    <img src="/img/logo.png" alt="" style="display:inline-block"/>
-    
-</div>
+<ul>
+    <li>
+        <a href="/auth/login">로그인</a>
+    </li>
+
+    <li>
+        <a href="/auth/logout">로그아웃</a>
+    </li>
+
+    <li>
+        <a href="/board">보드1</a>
+    </li>
+
+    <li>
+        <a href="/board2">보드2</a>
+    </li>
+
+    <li>
+        <a href="/login">로그인</a>
+    </li>
+</ul>

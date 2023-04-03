@@ -5,7 +5,7 @@
     import { onMount } from "svelte";
     import { user_id } from "$lib/store";
 
-    let getid;
+    let getname;
     let getpwd;
     let getnick;
     let getemail;
@@ -26,11 +26,6 @@
     
 
     async function joinPost() {
-        if (!getid) {
-            alert("아이디 항목이 비어있습니다.");
-            id_input.focus();
-            return;
-        }
 
         if (!getpwd) {
             alert("비밀번호 항목이 비어있습니다.");
@@ -44,6 +39,14 @@
             return;
         }
 
+        if (!getname) {
+            alert("닉네임 항목이 비어있습니다.");
+            nick_input.focus();
+            return;
+        }
+
+        
+
         if (!getemail) {
             alert("이메일 항목이 비어있습니다.");
             email_input.focus();
@@ -52,7 +55,6 @@
 
         await axios
             .post(import.meta.env.VITE_SERVER_URL + "/auth/join", {
-                getid,
                 getpwd,
                 getnick,
                 getemail,
@@ -86,17 +88,19 @@
 
 <div class="w-full max-w-xs mx-auto mt-20 suit-font">
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+
         <div class="mb-4">
             <span class="block text-gray-700 text-sm font-bold mb-2">
-                아이디
+                이메일
             </span>
             <input
-                type="text"
-                bind:value={getid}
-                bind:this={id_input}
+                type="email"
+                bind:value={getemail}
+                bind:this={email_input}
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
         </div>
+
         <div class="mb-4">
             <span class="block text-gray-700 text-sm font-bold mb-2">
                 비밀번호
@@ -111,26 +115,30 @@
 
         <div class="mb-4">
             <span class="block text-gray-700 text-sm font-bold mb-2">
-                닉네임
+                이름
             </span>
             <input
-                bind:value={getnick}
-                bind:this={nick_input}
+                type="text"
+                bind:value={getname}
+                bind:this={id_input}
+                placeholder="실명으로 입력 해주세요"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
         </div>
 
         <div class="mb-4">
             <span class="block text-gray-700 text-sm font-bold mb-2">
-                이메일
+                닉네임
             </span>
             <input
-                type="email"
-                bind:value={getemail}
-                bind:this={email_input}
+                bind:value={getnick}
+                bind:this={nick_input}
+                placeholder="활동하실 닉네임"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
         </div>
+
+        
 
         <div class="">
             <button
