@@ -173,5 +173,8 @@
                 </td>
             </tr>
         </table>
-    {/await}
+    {/await} 
+
+
+    
 </div>

@@ -1,4 +1,5 @@
 <script>
+    import "$node_modules/@fortawesome/fontawesome-free/css/all.min.css";
     import "$src/app.css";
     import { page } from "$app/stores";
     import { auth_chk } from "$lib/lib";
@@ -7,19 +8,25 @@
     import { admin_sidebar, pc_sidebar, mobile_sidebar } from "$lib/store";
 
     $pc_sidebar = false;
-    
+
     let user_area = false;
     let innerWidth;
-    console.log("sldjflsajdf");
-    console.log(pc_sidebar);
 
     let menu_list = [
-        { icon: '<i class="fa-solid fa-gear"></i>', name: "메인관리", link: '/admin' },
-        { icon: '<i class="fa-solid fa-money-bill"></i>', name: "요금제관리", link: '/yogmanage' },
+        {
+            icon: '<i class="fa-solid fa-gear"></i>',
+            name: "메인관리",
+            link: "/admin",
+        },
+        {
+            icon: '<i class="fa-solid fa-money-bill"></i>',
+            name: "요금제관리",
+            link: "/admin/yogmanage",
+        },
         {
             icon: '<i class="fa-solid fa-square-phone-flip"></i>',
             name: "공시 관리",
-            link: "/gongsi"
+            link: "/admin/gongsi",
         },
     ];
 
@@ -31,7 +38,6 @@
         auth_chk();
     }
     $: {
-        console.log(innerWidth);
         if (innerWidth < 980) {
             $pc_sidebar = true;
         } else {
@@ -40,9 +46,26 @@
         }
     }
 
-    const testfff = () => {
-        console.log("asldjflajsdfj");
-        user_area = !user_area;
+    const user_area_toggle = (ele) => {
+        ele.addEventListener("click", (e) => {
+            user_area = !user_area;
+            e.stopPropagation();
+        });
+
+        window.addEventListener("click", () => {
+            user_area = false;
+        });
+    };
+
+    const mobile_sidebar_toggle = (ele) => {
+        ele.addEventListener("click", (e) => {
+            $mobile_sidebar = !$mobile_sidebar;
+            e.stopPropagation();
+        });
+
+        window.addEventListener("click", () => {
+            $mobile_sidebar = true;
+        });
     };
 </script>
 
@@ -50,10 +73,6 @@
     <!-- SUIT 폰트 CSS -->
     <link
         href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css"
-        rel="stylesheet"
-    />
-    <link
-        href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
         rel="stylesheet"
     />
 </svelte:head>
@@ -69,7 +88,7 @@
     >
         <i class="fa-solid fa-burger" />
     </button>
-    <button on:click={testfff} class="p pt-1">
+    <button class="p pt-1" use:user_area_toggle>
         <span class="text-white ml-6 relative">
             User님 로그인중
             {#if user_area}
@@ -93,9 +112,11 @@
         >
     </button>
 
-    <button class="text-2xl text-white inline-block float-right relative md:hidden" on:click={()=>{$mobile_sidebar = !$mobile_sidebar}}>
+    <button
+        class="text-2xl text-white inline-block float-right relative md:hidden"
+        use:mobile_sidebar_toggle
+    >
         <i class="fa-solid fa-burger" />
-
 
         <div
             class="border border-slate-400 w-40 absolute top-9 bg-white text-black text-sm rounded-md"
@@ -104,12 +125,13 @@
         >
             <ul>
                 {#each menu_list as list}
-                    <li class="py-2 border-b border-gray-200">{@html list.icon} {list.name}</li>
+                    <li class="py-2 border-b border-gray-200">
+                        {@html list.icon}
+                        {list.name}
+                    </li>
                 {/each}
             </ul>
         </div>
-
-
     </button>
 </div>
 
@@ -120,5 +142,15 @@
 <style>
     :global(.suit-font) {
         font-family: "SUIT";
+    }
+
+    :global(.table_wrap) {
+        width: 100%;
+        overflow: auto;
+    }
+
+    :global(.table_area) {
+        width: 100%;
+        min-width: 1100px;
     }
 </style>
