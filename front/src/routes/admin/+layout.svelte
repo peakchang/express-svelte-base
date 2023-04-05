@@ -28,6 +28,11 @@
             name: "공시 관리",
             link: "/admin/gongsi",
         },
+        {
+            icon: '<i class="fa-solid fa-sitemap"></i>',
+            name: "상품 관리",
+            link: "/admin/item",
+        },
     ];
 
     let url = "/admin";
@@ -151,6 +156,6 @@
 
     :global(.table_area) {
         width: 100%;
-        min-width: 1100px;
+        min-width: 880px;
     }
 </style>

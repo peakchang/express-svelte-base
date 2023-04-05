@@ -1,26 +1,28 @@
 <script>
     import { pc_sidebar } from "$lib/store";
-    let tongArr = ["SK", "KT", "LG U+"];
+    let tongArr = ["전체", "SK", "KT", "LG U+"];
+    let typeArr = ["전체", "일반", "키즈"];
 </script>
 
 <div class="suit-font px-2 pt-16" class:pl-44={!$pc_sidebar}>
     <div>
-        <div class="flex">
-            <ul class="grid gap-1 md:grid-cols-{tongArr.length}">
+        <div class="flex flex-wrap">
+            <ul class="flex mt-2">
                 {#each tongArr as tong, idx}
-                    <li>
+                    <li class="ml-1">
                         <input
                             type="radio"
-                            id="radio{idx}"
+                            id="tong{idx}"
                             name="hosting"
                             class="hidden peer"
+                            checked={idx === 0}
                             required
                         />
                         <label
-                            for="radio{idx}"
+                            for="tong{idx}"
                             class="inline-flex items-center justify-center w-full text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 px-3"
                         >
-                            <div class="block ">
+                            <div class="block">
                                 <div class="w-full">{tong}</div>
                             </div>
                         </label>
@@ -28,14 +30,40 @@
                 {/each}
             </ul>
 
+            <span class="i inline-block px-2 mt-2">l</span>
+
+
+            <ul class="flex mt-2">
+                {#each typeArr as type, idx}
+                    <li class="ml-1">
+                        <input
+                            type="radio"
+                            id="type{idx}"
+                            name="gettype"
+                            class="hidden peer"
+                            checked={idx === 0}
+                            required
+                        />
+                        <label
+                            for="type{idx}"
+                            class="inline-flex items-center justify-center w-full text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 px-3"
+                        >
+                            <div class="block">
+                                <div class="w-full">{type}</div>
+                            </div>
+                        </label>
+                    </li>
+                {/each}
+            </ul>
+
             <button
-                class="border border-emerald-700 bg-emerald-700 px-4 py-1 text-sm rounded-md text-white ml-3"
+                class="border border-emerald-700 bg-emerald-700 px-4 py-1 text-sm rounded-md text-white ml-3 mt-2"
             >
-                검색
+                선택수정
             </button>
 
             <button
-                class="border border-red-700 bg-red-700 px-4 py-1 text-sm rounded-md text-white"
+                class="border border-red-700 bg-red-700 px-4 py-1 text-sm rounded-md text-white ml-3 mt-2"
             >
                 선택삭제
             </button>
@@ -110,5 +138,3 @@
         </div>
     </div>
 </div>
-
-
