@@ -4,6 +4,8 @@ import { sql_con } from "../lib/set_db.js";
 import passport from "passport";
 import { isLoggedIn, isNotLoggedIn } from "./middlewares.js"
 import request from "async-request";
+import moment from "moment-timezone";
+moment.tz.setDefault("Asia/Seoul");
 
 const authRouter = express.Router();
 
@@ -11,11 +13,12 @@ authRouter.post('/join', async (req, res, next) => {
     let err_message = {}
     try {
         const hash = await bcrypt.hash(req.body.getpwd, 12);
-        const joinArr = [req.body.getid, hash, req.body.getnick, req.body.getemail]
-        const joinSql = "INSERT INTO users (user_id, user_pwd, user_nick, user_email) VALUES (?,?,?,?)";
+        const now = moment().format('YYYY-MM-DD HH:mm:ss')
+        const joinArr = [req.body.getemail, hash, req.body.getnick, req.body.getname, now]
+        const joinSql = "INSERT INTO users (user_email, user_pwd, user_name, user_nick, user_created_at) VALUES (?,?,?,?,?)";
         await sql_con.promise().query(joinSql, joinArr);
     } catch (error) {
-        if (error.message.includes('user_id')) {
+        if (error.message.includes('user_email')) {
             err_message = { err_message: '이미 가입된 아이디 입니다.' }
         } else if (error.message.includes('user_nick')) {
             err_message = { err_message: '이미 가입된 닉네임 입니다.' }

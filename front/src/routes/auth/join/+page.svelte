@@ -17,16 +17,13 @@
 
     onMount(() => {
         if ($user_id) {
-            alert('이미 로그인 되어 있습니다!')
-            history.back()
-            return
+            alert("이미 로그인 되어 있습니다!");
+            history.back();
+            return;
         }
-    })
-
-    
+    });
 
     async function joinPost() {
-
         if (!getpwd) {
             alert("비밀번호 항목이 비어있습니다.");
             pwd_input.focus();
@@ -45,10 +42,15 @@
             return;
         }
 
-        
-
         if (!getemail) {
             alert("이메일 항목이 비어있습니다.");
+            email_input.focus();
+            return;
+        }
+
+        var emailChkJs = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+        if (emailChkJs.test(getemail) == false) {
+            alert("이메일 형식이 잘못 되었습니다!");
             email_input.focus();
             return;
         }
@@ -58,14 +60,14 @@
                 getpwd,
                 getnick,
                 getemail,
+                getname,
             })
             .then((res) => {
                 if (res.data.err_message) {
                     // 로그인 실패시
-                    alert(res.data.err_message)
-                    return
+                    alert(res.data.err_message);
+                    return;
                 } else {
-                    
                     // 로그인 성공시
                     alert("로그인 해주세요");
                     goto("/auth/login");
@@ -88,7 +90,6 @@
 
 <div class="w-full max-w-xs mx-auto mt-20 suit-font">
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-
         <div class="mb-4">
             <span class="block text-gray-700 text-sm font-bold mb-2">
                 이메일
@@ -137,8 +138,6 @@
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
         </div>
-
-        
 
         <div class="">
             <button

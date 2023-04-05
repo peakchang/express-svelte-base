@@ -2,13 +2,23 @@
     import { goto } from "$app/navigation";
     import axios from "axios";
     import { user_id } from "$lib/store.js";
+    import { onMount } from "svelte";
 
-    let getid;
+    let getemail;
     let getpwd;
     let id_input;
 
+    onMount(() => {
+        console.log($user_id);
+        if($user_id){
+            alert('이미 로그인 되어 있습니다.')
+            history.back()
+            return
+        }
+    })
+
     const request_login = async () => {
-        if (!getid || !getpwd) {
+        if (!getemail || !getpwd) {
             alert("아이디와 비밀번호를 입력해주세요!");
             return;
         }
@@ -17,7 +27,7 @@
             .post(
                 import.meta.env.VITE_SERVER_URL + "/auth/login",
                 {
-                    getid,
+                    getemail,
                     getpwd,
                 },
                 { withCredentials: true }
@@ -66,7 +76,7 @@
             </span>
             <input
                 type="text"
-                bind:value={getid}
+                bind:value={getemail}
                 bind:this={id_input}
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />

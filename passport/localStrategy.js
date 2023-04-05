@@ -5,11 +5,11 @@ import { sql_con } from '../lib/set_db.js';
 
 export const local = () => {
     passport.use(new localStrategy({
-        usernameField: 'getid',
+        usernameField: 'getemail',
         passwordField: 'getpwd',
-    }, async (getid, getpwd, done) => {
+    }, async (getemail, getpwd, done) => {
         try {
-            let getUserSql = `SELECT * FROM users WHERE user_id = '${getid}';`;
+            let getUserSql = `SELECT * FROM users WHERE user_email = '${getemail}';`;
             const getUser = await sql_con.promise().query(getUserSql)
             let exUser = getUser[0]
             if (exUser[0]) {

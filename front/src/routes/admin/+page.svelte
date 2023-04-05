@@ -1,6 +1,7 @@
 <script>
     import axios from "axios";
     import { onMount, beforeUpdate } from "svelte";
+    import { admin_sidebar,pc_sidebar } from "$lib/store";
 
     let site_info = get_site_info();
     let site_company;
@@ -29,7 +30,6 @@
             .then((res) => {
                 console.log("success!!");
                 site_info = get_site_info();
-
             });
     };
 
@@ -53,7 +53,7 @@
     }
 </script>
 
-<div class="pt-24 container mx-auto suit-font px-2">
+<div class="suit-font px-2 pt-10" class:pl-44={!$pc_sidebar}>
     <div class="pt-5 pb-2">
         <button
             class="border border-blue-600 px-4 rounded-lg py-1 bg-blue-600 text-white"
@@ -67,7 +67,7 @@
         <table class="w-full table border-collapse text-xs md:text-base">
             <tr>
                 <th class="border border-slate-400 py-1">회사명</th>
-                <td class="border border-slate-400 py-1 ">
+                <td class="border border-slate-400 py-1">
                     <div class="flex">
                         <input
                             type="text"
@@ -113,7 +113,8 @@
                         />
                         <button
                             class="border border-emerald-600 px-2 md:px-4 rounded-lg py-1 bg-emerald-600 text-white"
-                            >변경</button>
+                            >변경</button
+                        >
                     </div>
                 </td>
             </tr>

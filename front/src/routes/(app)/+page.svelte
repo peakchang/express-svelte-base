@@ -19,6 +19,6 @@
     </li>
 
     <li>
-        <a href="/login">로그인</a>
+        <a href="/admin">어드민</a>
     </li>
 </ul>

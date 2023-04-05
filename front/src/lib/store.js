@@ -1,6 +1,10 @@
 import { writable } from 'svelte/store'
 import { browser } from "$app/environment";
 
+export let admin_sidebar = writable(false);
+export let pc_sidebar = writable(false);
+export let mobile_sidebar = writable(false);
+
 export let userId = writable('');
 
 const persist_storage = (key, initValue) => {
@@ -17,3 +21,5 @@ const persist_storage = (key, initValue) => {
 }
 
 export const user_id = persist_storage("user_id", "")
+
+
